@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\mapel;
+use App\Models\Dudi;
 use Illuminate\Http\Request;
 
-class MapelController extends Controller
+class DudiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,9 @@ class MapelController extends Controller
      */
     public function index()
     {
-        $mapels = mapel::paginate(10);
-        return view("mapel.index", compact("mapels"));
+        $dudi = Dudi::paginate('10');
+        return view('dudi.index', compact('dudi'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +24,7 @@ class MapelController extends Controller
      */
     public function create()
     {
-        return view("mapel.create");
+        //
     }
 
     /**
@@ -38,69 +37,64 @@ class MapelController extends Controller
     {
         //validate form
         $this->validate($request, [
-
-            'nama_mapel'   => 'required'
+            'nama' => 'required',
+            'alamat' => 'required'
         ]);
 
-        //create post
-        mapel::create([
-            'nama_mapel'   => $request->nama_mapel
+        //upload image
+
+        //create siswa
+        Dudi::create([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat
         ]);
 
         //redirect to index
-        return redirect()->route('mapel.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('dudi.index')->with(['success' => 'Data Berhasil Di Tambah!']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Dudi  $dudi
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Dudi $dudi)
     {
-        $mapels = mapel::paginate(10);
-        return view("mapel.index", compact("mapels"));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Dudi  $dudi
      * @return \Illuminate\Http\Response
      */
-    public function edit( Mapel $mapel)
+    public function edit(Dudi $dudi)
     {
-        return view("mapel.edit", compact("mapel"));
-    }                
+        //
+    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Dudi  $dudi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mapel $mapel)
+    public function update(Request $request, Dudi $dudi)
     {
-        $mapel->update([
-            'nama_mapel' => $request->nama_mapel,
-        ]);
-    
-
-    //redirect to index
-    return redirect()->route('mapel.index')->with(['success' => 'Data Berhasil Diubah!']);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Dudi  $dudi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mapel $mapel)
+    public function destroy(Dudi $dudi)
     {
-       $mapel ->delete();
-       return redirect()->route("mapel.index")->with(["success"=> "Data Berhasil Di Hapus"]);
+        //
     }
 }
